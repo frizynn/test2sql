@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivii · Consultas de Ventas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page" id="page">
+    <!-- Hero (visible in initial state, shrinks when results show) -->
+    <div class="hero" id="hero">
+      <h1 class="hero__title">Nivii</h1>
+      <p class="hero__sub">Consultas de ventas con lenguaje natural</p>
+    </div>
+
+    <!-- Input bar -->
+    <form id="queryForm" class="input-bar" autocomplete="off">
+      <textarea id="questionInput" class="input-bar__field" placeholder="Pregunt&aacute; sobre ventas..." rows="1" required></textarea>
+      <button type="button" id="cancelBtn" class="input-bar__cancel hidden" title="Cancelar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <button type="submit" id="submitBtn" class="input-bar__submit" title="Consultar">
+        <svg class="input-bar__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <span class="input-bar__spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+
+    <!-- Progress (single line, subtle) -->
+    <div id="progressLine" class="progress-line hidden">
+      <span class="progress-line__dot"></span>
+      <span class="progress-line__text" id="progressText">Generando SQL...</span>
+    </div>
+
+    <!-- Error -->
+    <div id="errorDisplay" class="error-msg hidden" role="alert">
+      <p class="error-msg__title" id="errorTitle">Error</p>
+      <p class="error-msg__detail" id="errorDetail"></p>
+    </div>
+
+    <!-- Results -->
+    <div id="resultsArea" class="results hidden">
+
+      <!-- Answer (first — this is what the user cares about) -->
+      <section id="answerSection" class="answer hidden">
+        <p class="answer__text" id="answerText"></p>
+        <span class="answer__meta" id="nlgTiming"></span>
+      </section>
+
+      <!-- Answer skeleton -->
+      <section id="answerSkeleton" class="answer hidden">
+        <div class="answer-skeleton">
+          <div class="shimmer" style="width:92%"></div>
+          <div class="shimmer" style="width:78%"></div>
+          <div class="shimmer" style="width:55%"></div>
+        </div>
+      </section>
+
+      <!-- NLG error -->
+      <div id="nlgErrorSection" class="nlg-error hidden">
+        <p class="nlg-error__text" id="nlgErrorText"></p>
+      </div>
+
+      <!-- Thinking block (ChatGPT-style, live trace during MCTS) -->
+      <div id="thinkingBlock" class="thinking hidden">
+        <button class="thinking__toggle" id="thinkingToggle">
+          <span class="thinking__icon" id="thinkingIcon">&#9679;</span>
+          <span class="thinking__label" id="thinkingLabel">Pensando...</span>
+          <span class="thinking__meta" id="thinkingMeta"></span>
+          <span class="thinking__chevron" id="thinkingChevron">&#9656;</span>
+        </button>
+        <div class="thinking__body" id="traceBody"></div>
+      </div>
+
+      <!-- Technical details (collapsible) -->
+      <details id="detailsSection" class="details hidden">
+        <summary class="details__toggle">
+          <span class="details__label">Detalles</span>
+          <span class="details__meta" id="sqlTiming"></span>
+        </summary>
+        <div class="details__body">
+          <!-- SQL -->
+          <div id="sqlSection" class="details__section hidden">
+            <div class="details__section-header">
+              <span class="details__section-label">SQL</span>
+              <button class="details__copy" id="copySqlBtn" title="Copiar">Copiar</button>
+            </div>
+            <pre class="code-block"><code id="sqlCode"></code></pre>
+          </div>
+
+          <!-- Table -->
+          <div id="tableSection" class="details__section hidden">
+            <div class="details__section-header">
+              <span class="details__section-label">Resultados</span>
+              <span class="details__section-meta" id="rowCount"></span>
+            </div>
+            <div class="table-wrap" id="tableWrap">
+              <table class="data-table">
+                <thead id="tableHead"></thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+            <p id="emptyResults" class="empty-msg hidden">Sin resultados para esta consulta.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Skeletons (shown during loading, before answer) -->
+      <section id="sqlSkeleton" class="section hidden">
+        <div class="code-block code-block--skeleton">
+          <div class="shimmer shimmer--dark" style="width:75%"></div>
+          <div class="shimmer shimmer--dark" style="width:55%"></div>
+          <div class="shimmer shimmer--dark" style="width:65%"></div>
+        </div>
+      </section>
+
+      <section id="tableSkeleton" class="section hidden">
+        <div class="table-skeleton">
+          <div class="table-skeleton__row table-skeleton__row--header">
+            <div class="shimmer" style="width:20%"></div>
+            <div class="shimmer" style="width:30%"></div>
+            <div class="shimmer" style="width:15%"></div>
+          </div>
+          <div class="table-skeleton__row"><div class="shimmer" style="width:18%"></div><div class="shimmer" style="width:28%"></div><div class="shimmer" style="width:14%"></div></div>
+          <div class="table-skeleton__row"><div class="shimmer" style="width:22%"></div><div class="shimmer" style="width:24%"></div><div class="shimmer" style="width:16%"></div></div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <p>An&aacute;lisis de ventas con lenguaje natural</p>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

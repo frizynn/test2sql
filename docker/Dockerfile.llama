@@ -1,0 +1,47 @@
+# Multi-stage build: llama-server from source (cross-platform CPU)
+# Pinned to b8270 matching local version — deterministic, cache-friendly.
+
+# --- Stage 1: Build ---
+FROM ubuntu:22.04 AS build
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        cmake \
+        git \
+        ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# Clone at pinned tag for reproducible builds
+RUN git clone --depth 1 --branch b8270 \
+    https://github.com/ggml-org/llama.cpp.git /llama.cpp
+
+WORKDIR /llama.cpp
+
+# Build llama-server only — CPU, cross-platform (no host-specific SIMD)
+RUN cmake -B build \
+        -DGGML_NATIVE=OFF \
+        -DGGML_CPU_AARCH64=ON \
+        -DLLAMA_CURL=OFF \
+        -DCMAKE_BUILD_TYPE=Release && \
+    cmake --build build --target llama-server -j$(nproc)
+
+# --- Stage 2: Runtime ---
+FROM ubuntu:22.04 AS runtime
+
+# Minimal runtime deps (libstdc++, libgomp for OpenMP)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libgomp1 \
+        curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy binary and all shared libraries it depends on
+COPY --from=build /llama.cpp/build/bin/llama-server /usr/local/bin/llama-server
+COPY --from=build /llama.cpp/build/bin/*.so* /usr/local/lib/
+RUN ldconfig
+
+EXPOSE 8080
+
+ENTRYPOINT ["llama-server"]
+CMD ["--host", "0.0.0.0", "--port", "8080"]

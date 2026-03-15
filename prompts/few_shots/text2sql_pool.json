@@ -1,0 +1,1052 @@
+[
+  {
+    "question": "¿Cuántas filas hay en la base de datos?",
+    "sql": "SELECT COUNT(*) AS total_filas FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "Simple COUNT(*) over entire table"
+  },
+  {
+    "question": "¿Cuál es la suma total de la columna total?",
+    "sql": "SELECT SUM(total) AS suma_total FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "SUM aggregation on total column"
+  },
+  {
+    "question": "¿Cuántas unidades se vendieron en total?",
+    "sql": "SELECT SUM(quantity) AS total_unidades FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "SUM on quantity column"
+  },
+  {
+    "question": "¿Cuánto vale como mínimo un artículo según la columna unitary_price?",
+    "sql": "SELECT MIN(unitary_price) AS precio_minimo FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "MIN aggregation on unitary_price"
+  },
+  {
+    "question": "¿Cuál es el tope máximo en la columna de tarifa unitaria?",
+    "sql": "SELECT MAX(unitary_price) AS precio_maximo FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "MAX aggregation on unitary_price"
+  },
+  {
+    "question": "¿Cuál es la cantidad promedio vendida por línea?",
+    "sql": "SELECT AVG(quantity) AS cantidad_promedio FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "AVG on quantity column"
+  },
+  {
+    "question": "¿Cuántos días de la semana distintos hay registrados?",
+    "sql": "SELECT COUNT(DISTINCT week_day) AS dias_distintos FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "COUNT DISTINCT on week_day"
+  },
+  {
+    "question": "¿Cuántos mozos diferentes aparecen en los datos?",
+    "sql": "SELECT COUNT(DISTINCT waiter) AS mozos_distintos FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "COUNT DISTINCT on waiter"
+  },
+  {
+    "question": "¿Cuántos valores distintos de hora hay?",
+    "sql": "SELECT COUNT(DISTINCT hour) AS horas_distintas FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "COUNT DISTINCT on hour"
+  },
+  {
+    "question": "¿Qué cifra tiene la línea con monto más elevado en la columna total?",
+    "sql": "SELECT MAX(total) AS max_total FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "MAX on total column"
+  },
+  {
+    "question": "¿Cuántas ventas realizó el mozo 51?",
+    "sql": "SELECT COUNT(*) AS ventas_mozo51 FROM sales WHERE waiter = '51';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with single WHERE filter on waiter"
+  },
+  {
+    "question": "¿Cuántos registros pertenecen al vendedor con código 102?",
+    "sql": "SELECT COUNT(*) AS lineas_mozo102 FROM sales WHERE waiter = '102';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by specific waiter value"
+  },
+  {
+    "question": "¿Cuánta plata generó el vendedor número 105?",
+    "sql": "SELECT SUM(total) AS total_mozo105 FROM sales WHERE waiter = '105';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM with WHERE filter on waiter"
+  },
+  {
+    "question": "¿Cuántas ventas hubo los martes?",
+    "sql": "SELECT COUNT(*) AS ventas_martes FROM sales WHERE week_day = 'Tuesday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with day translation lunes→Tuesday"
+  },
+  {
+    "question": "¿Cuánto se facturó los días miércoles?",
+    "sql": "SELECT SUM(total) AS total_miercoles FROM sales WHERE week_day = 'Wednesday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM filtered by translated day name"
+  },
+  {
+    "question": "¿Cuántos registros de transacciones existen para los días jueves?",
+    "sql": "SELECT COUNT(*) AS lineas_jueves FROM sales WHERE week_day = 'Thursday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by Thursday"
+  },
+  {
+    "question": "¿Cuánto dinero ingresó por operaciones los días sábado?",
+    "sql": "SELECT SUM(total) AS total_sabados FROM sales WHERE week_day = 'Saturday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM filtered by Saturday"
+  },
+  {
+    "question": "¿Cuántas ventas se realizaron en noviembre?",
+    "sql": "SELECT COUNT(*) AS ventas_noviembre FROM sales WHERE date LIKE '11/%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with LIKE date pattern for November"
+  },
+  {
+    "question": "¿Cuánto se facturó en septiembre?",
+    "sql": "SELECT SUM(total) AS facturado_septiembre FROM sales WHERE date LIKE '9/%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM filtered by September using LIKE"
+  },
+  {
+    "question": "¿Cuántos registros de venta se generaron con fecha exacta 10/15/2024?",
+    "sql": "SELECT COUNT(*) AS lineas FROM sales WHERE date = '10/15/2024';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by exact date"
+  },
+  {
+    "question": "¿Cuántas unidades de conitos se vendieron?",
+    "sql": "SELECT SUM(quantity) AS unidades_conitos FROM sales WHERE product_name LIKE '%Conito%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM quantity with LIKE product name filter"
+  },
+  {
+    "question": "¿Cuánto se facturó en alfajores de chocolate?",
+    "sql": "SELECT SUM(total) AS total_alf_choc FROM sales WHERE product_name LIKE '%Alfajor choc%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM total with LIKE product filter"
+  },
+  {
+    "question": "¿Cuántas ventas hubo del producto dulce de leche?",
+    "sql": "SELECT COUNT(*) AS ventas_ddl FROM sales WHERE product_name LIKE '%Dulce de leche%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by product LIKE"
+  },
+  {
+    "question": "¿Cuántas líneas de venta son del tipo FCA?",
+    "sql": "SELECT COUNT(*) AS lineas_fca FROM sales WHERE ticket_number LIKE 'FCA%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by ticket prefix"
+  },
+  {
+    "question": "¿Cuántos registros existen después del horario de las 18 horas?",
+    "sql": "SELECT COUNT(*) AS ventas_despues_18 FROM sales WHERE hour >= '18:00';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with hour comparison"
+  },
+  {
+    "question": "¿Cuántas líneas tienen cantidad negativa?",
+    "sql": "SELECT COUNT(*) AS lineas_negativas FROM sales WHERE quantity < 0;",
+    "difficulty": "easy",
+    "category": "edge_case",
+    "explanation": "COUNT filtering for returns (negative quantity)"
+  },
+  {
+    "question": "¿Cuántas líneas tienen precio unitario igual a cero?",
+    "sql": "SELECT COUNT(*) AS lineas_gratis FROM sales WHERE unitary_price = 0;",
+    "difficulty": "easy",
+    "category": "edge_case",
+    "explanation": "COUNT filtering for promotional items"
+  },
+  {
+    "question": "¿Cuál es el total negativo por devoluciones?",
+    "sql": "SELECT SUM(total) AS total_devoluciones FROM sales WHERE quantity < 0;",
+    "difficulty": "easy",
+    "category": "edge_case",
+    "explanation": "SUM of total for return rows"
+  },
+  {
+    "question": "¿Cuántas operaciones se concretaron en horario previo al mediodía?",
+    "sql": "SELECT COUNT(*) AS ventas_manana FROM sales WHERE hour < '12:00';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with hour comparison for morning sales"
+  },
+  {
+    "question": "¿Cuáles son los nombres de los productos distintos que se vendieron?",
+    "sql": "SELECT DISTINCT product_name FROM sales ORDER BY product_name;",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SELECT DISTINCT with ORDER BY"
+  },
+  {
+    "question": "¿Cuáles son los días de la semana disponibles en los datos?",
+    "sql": "SELECT DISTINCT week_day FROM sales;",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SELECT DISTINCT on week_day column"
+  },
+  {
+    "question": "¿Cuántas ventas tiene el mozo 0?",
+    "sql": "SELECT COUNT(*) AS ventas_mozo0 FROM sales WHERE waiter = '0';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT for waiter = '0'"
+  },
+  {
+    "question": "¿Cuál es el mínimo de la columna total?",
+    "sql": "SELECT MIN(total) AS min_total FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "MIN on total column"
+  },
+  {
+    "question": "¿Cuántas líneas tienen una cantidad mayor a 5?",
+    "sql": "SELECT COUNT(*) AS lineas_mayor_5 FROM sales WHERE quantity > 5;",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with quantity threshold"
+  },
+  {
+    "question": "¿Cuánto recaudaron las tabletas de chocolate en total?",
+    "sql": "SELECT SUM(total) AS total_tabletas FROM sales WHERE product_name LIKE '%Tableta%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM total filtered by Tableta products"
+  },
+  {
+    "question": "¿Cuántas ventas se hicieron del producto Alfajor merengue x un?",
+    "sql": "SELECT COUNT(*) AS ventas FROM sales WHERE product_name = 'Alfajor merengue x un';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with exact product match"
+  },
+  {
+    "question": "¿Cuántas líneas de venta se registraron del tipo NCB?",
+    "sql": "SELECT COUNT(*) AS lineas_ncb FROM sales WHERE ticket_number LIKE 'NCB%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with NCB ticket prefix"
+  },
+  {
+    "question": "¿Cuál es la media aritmética del campo total por cada registro?",
+    "sql": "SELECT AVG(total) AS promedio_total FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "AVG on total column"
+  },
+  {
+    "question": "¿Cuántas líneas tienen un total superior a 50000?",
+    "sql": "SELECT COUNT(*) AS lineas_alto_valor FROM sales WHERE total > 50000;",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with total threshold"
+  },
+  {
+    "question": "¿Cuántos registros se crearon para la fecha del primero de noviembre de 2024?",
+    "sql": "SELECT COUNT(*) AS ventas FROM sales WHERE date = '11/1/2024';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT on specific date"
+  },
+  {
+    "question": "¿Cuántas unidades del producto Alf. 150 aniv. Suelto se vendieron?",
+    "sql": "SELECT SUM(quantity) AS unidades FROM sales WHERE product_name = 'Alf. 150 aniv. Suelto';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM quantity for specific product"
+  },
+  {
+    "question": "¿Cuántas ventas se hicieron los lunes?",
+    "sql": "SELECT COUNT(*) AS ventas_lunes FROM sales WHERE week_day = 'Monday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with Monday filter"
+  },
+  {
+    "question": "¿Cuál es la suma total facturada en barritas?",
+    "sql": "SELECT SUM(total) AS total_barritas FROM sales WHERE product_name LIKE '%Barrita%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM total for Barrita products"
+  },
+  {
+    "question": "¿Cuántas ventas hubo de galletitas?",
+    "sql": "SELECT COUNT(*) AS ventas_galletitas FROM sales WHERE product_name LIKE '%Galletita%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT filtered by Galletita"
+  },
+  {
+    "question": "¿Cuántas fechas distintas hay en los datos?",
+    "sql": "SELECT COUNT(DISTINCT date) AS fechas_distintas FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "COUNT DISTINCT on date"
+  },
+  {
+    "question": "¿Cuántos números de ticket únicos empiezan con las letras FCB?",
+    "sql": "SELECT COUNT(DISTINCT ticket_number) AS tickets_fcb FROM sales WHERE ticket_number LIKE 'FCB%';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT DISTINCT tickets with FCB prefix"
+  },
+  {
+    "question": "¿Cuál es la suma de cantidad vendida los viernes?",
+    "sql": "SELECT SUM(quantity) AS cantidad_viernes FROM sales WHERE week_day = 'Friday';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "SUM quantity filtered by Friday"
+  },
+  {
+    "question": "¿Cuántos registros de operación tiene asignados el vendedor 104?",
+    "sql": "SELECT COUNT(*) AS lineas_mozo104 FROM sales WHERE waiter = '104';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with waiter filter"
+  },
+  {
+    "question": "¿Cuántos registros de operación caen en el rango horario de 14 a 16?",
+    "sql": "SELECT COUNT(*) AS lineas FROM sales WHERE hour >= '14:00' AND hour <= '16:00';",
+    "difficulty": "easy",
+    "category": "filter",
+    "explanation": "COUNT with hour range filter"
+  },
+  {
+    "question": "¿Cuál es el mayor valor de la columna quantity en toda la tabla?",
+    "sql": "SELECT MAX(quantity) AS max_cantidad FROM sales;",
+    "difficulty": "easy",
+    "category": "aggregation",
+    "explanation": "MAX on quantity column"
+  },
+  {
+    "question": "¿Cómo se distribuyen los registros de operaciones según el día semanal?",
+    "sql": "SELECT week_day, COUNT(*) AS lineas FROM sales GROUP BY week_day ORDER BY lineas DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY week_day with COUNT and ORDER BY"
+  },
+  {
+    "question": "¿Cuál es el monto recaudado por cada artículo del catálogo?",
+    "sql": "SELECT product_name, SUM(total) AS facturado FROM sales GROUP BY product_name ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY product with SUM and ORDER BY"
+  },
+  {
+    "question": "¿Cuántas unidades individuales fueron despachadas por cada artículo?",
+    "sql": "SELECT product_name, SUM(quantity) AS unidades FROM sales GROUP BY product_name ORDER BY unidades DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY product_name with SUM quantity"
+  },
+  {
+    "question": "¿Cuáles tres vendedores lideran el ranking de recaudación?",
+    "sql": "SELECT waiter, SUM(total) AS facturado FROM sales GROUP BY waiter ORDER BY facturado DESC LIMIT 3;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-3 waiters by total revenue"
+  },
+  {
+    "question": "¿Qué 10 artículos lideran en volumen de unidades despachadas?",
+    "sql": "SELECT product_name, SUM(quantity) AS unidades FROM sales GROUP BY product_name ORDER BY unidades DESC LIMIT 10;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-10 products by quantity sold"
+  },
+  {
+    "question": "¿Cuántas ventas hizo cada mozo en octubre?",
+    "sql": "SELECT waiter, COUNT(*) AS ventas FROM sales WHERE date LIKE '10/%' GROUP BY waiter ORDER BY ventas DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY waiter with date filter"
+  },
+  {
+    "question": "¿Cuál es la facturación total por mes?",
+    "sql": "SELECT CASE WHEN date LIKE '9/%' THEN 'Septiembre' WHEN date LIKE '10/%' THEN 'Octubre' WHEN date LIKE '11/%' THEN 'Noviembre' END AS mes, SUM(total) AS facturado FROM sales GROUP BY mes ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Monthly revenue using CASE WHEN for month names"
+  },
+  {
+    "question": "¿Cuántas líneas de venta tiene cada producto, mostrando solo los top 5?",
+    "sql": "SELECT product_name, COUNT(*) AS lineas FROM sales GROUP BY product_name ORDER BY lineas DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-5 products by line count"
+  },
+  {
+    "question": "¿Cuántas ventas por hora del día hay, mostrando las 5 horas pico?",
+    "sql": "SELECT SUBSTR(hour, 1, 2) AS hora, COUNT(*) AS ventas FROM sales GROUP BY hora ORDER BY ventas DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-5 peak hours using SUBSTR"
+  },
+  {
+    "question": "¿Cuánto factura en promedio cada boleta completa?",
+    "sql": "SELECT AVG(ticket_total) AS promedio_ticket FROM (SELECT ticket_number, SUM(total) AS ticket_total FROM sales GROUP BY ticket_number);",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Average ticket value using subquery"
+  },
+  {
+    "question": "¿Qué productos se vendieron los domingos y cuánto facturaron?",
+    "sql": "SELECT product_name, SUM(total) AS facturado FROM sales WHERE week_day = 'Sunday' GROUP BY product_name ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Products sold on Sundays grouped by product"
+  },
+  {
+    "question": "¿Cuáles 5 artículos tienen la tarifa promedio más elevada excluyendo regalos?",
+    "sql": "SELECT product_name, AVG(unitary_price) AS precio_promedio FROM sales WHERE unitary_price > 0 GROUP BY product_name ORDER BY precio_promedio DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Top-5 products by average price excluding promos"
+  },
+  {
+    "question": "¿Cuántos tickets distintos se generaron cada día de la semana?",
+    "sql": "SELECT week_day, COUNT(DISTINCT ticket_number) AS tickets FROM sales GROUP BY week_day ORDER BY tickets DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Distinct ticket count by day of week"
+  },
+  {
+    "question": "¿Cuántas ventas hubo los lunes y martes combinados?",
+    "sql": "SELECT COUNT(*) AS ventas FROM sales WHERE week_day IN ('Monday', 'Tuesday');",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "COUNT with IN clause for multiple days"
+  },
+  {
+    "question": "¿Cuánta recaudación obtuvo cada vendedor durante el mes de noviembre?",
+    "sql": "SELECT waiter, SUM(total) AS facturado FROM sales WHERE date LIKE '11/%' GROUP BY waiter ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Revenue per waiter in November"
+  },
+  {
+    "question": "¿Cuáles artículos superaron las 500 unidades totales despachadas?",
+    "sql": "SELECT product_name, SUM(quantity) AS unidades FROM sales GROUP BY product_name HAVING SUM(quantity) > 500 ORDER BY unidades DESC;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "HAVING clause to filter by quantity threshold"
+  },
+  {
+    "question": "¿Qué mozos facturaron más de 10 millones?",
+    "sql": "SELECT waiter, SUM(total) AS facturado FROM sales GROUP BY waiter HAVING SUM(total) > 10000000 ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "HAVING on SUM(total) threshold"
+  },
+  {
+    "question": "¿Cuáles son las 3 fechas con mayor facturación?",
+    "sql": "SELECT date, SUM(total) AS facturado FROM sales GROUP BY date ORDER BY facturado DESC LIMIT 3;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-3 dates by revenue"
+  },
+  {
+    "question": "¿Cuántos registros se generaron entre las 10 y las 14 horas en jornadas de viernes?",
+    "sql": "SELECT COUNT(*) AS lineas FROM sales WHERE week_day = 'Friday' AND hour >= '10:00' AND hour < '14:00';",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "Multiple WHERE conditions combining day and hour"
+  },
+  {
+    "question": "¿Cuánto vendió cada mozo los fines de semana?",
+    "sql": "SELECT waiter, SUM(total) AS facturado FROM sales WHERE week_day IN ('Saturday', 'Sunday') GROUP BY waiter ORDER BY facturado DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Revenue per waiter on weekends"
+  },
+  {
+    "question": "¿Cuántas ventas de alfajores hubo por día de la semana?",
+    "sql": "SELECT week_day, COUNT(*) AS ventas FROM sales WHERE product_name LIKE '%Alfajor%' GROUP BY week_day ORDER BY ventas DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Alfajor sales count by day of week"
+  },
+  {
+    "question": "¿Qué artículo aparece en la línea con mayor volumen de unidades en una sola operación?",
+    "sql": "SELECT product_name, quantity FROM sales ORDER BY quantity DESC LIMIT 1;",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "Top-1 row by quantity"
+  },
+  {
+    "question": "¿Cuál es la recaudación media de cada jornada semanal?",
+    "sql": "SELECT week_day, AVG(total) AS promedio FROM sales GROUP BY week_day ORDER BY promedio DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Average line total by day of week"
+  },
+  {
+    "question": "¿Cuántos artículos registraron más de 100 operaciones durante octubre?",
+    "sql": "SELECT COUNT(*) AS productos FROM (SELECT product_name FROM sales WHERE date LIKE '10/%' GROUP BY product_name HAVING COUNT(*) > 100);",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Counting products with HAVING threshold in October"
+  },
+  {
+    "question": "¿Cuáles 5 boletas acumularon los montos más altos?",
+    "sql": "SELECT ticket_number, SUM(total) AS monto FROM sales GROUP BY ticket_number ORDER BY monto DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-5 tickets by total amount"
+  },
+  {
+    "question": "¿Cómo se reparten los registros entre los prefijos de ticket (FCB, FCA, NCB, NCA)?",
+    "sql": "SELECT SUBSTR(ticket_number, 1, 3) AS tipo, COUNT(*) AS lineas FROM sales GROUP BY tipo ORDER BY lineas DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Grouping by ticket prefix using SUBSTR"
+  },
+  {
+    "question": "¿Cuáles son los productos vendidos solamente en noviembre?",
+    "sql": "SELECT DISTINCT product_name FROM sales WHERE date LIKE '11/%' AND product_name NOT IN (SELECT DISTINCT product_name FROM sales WHERE date NOT LIKE '11/%');",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "NOT IN subquery to find November-exclusive products"
+  },
+  {
+    "question": "¿Cuántas ventas se hicieron con cantidades mayores a 10 unidades?",
+    "sql": "SELECT COUNT(*) AS ventas_grandes FROM sales WHERE quantity > 10;",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "COUNT with high quantity threshold"
+  },
+  {
+    "question": "¿Cuál es la cantidad total vendida por día de la semana y mes?",
+    "sql": "SELECT week_day, CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, SUM(quantity) AS unidades FROM sales GROUP BY week_day, mes ORDER BY unidades DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY two dimensions: day and month"
+  },
+  {
+    "question": "¿Cuántos artículos diferentes atendió cada vendedor?",
+    "sql": "SELECT waiter, COUNT(DISTINCT product_name) AS productos FROM sales GROUP BY waiter ORDER BY productos DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "COUNT DISTINCT grouped by waiter"
+  },
+  {
+    "question": "¿Cuáles son las 5 combinaciones de mozo y producto con mayor facturación?",
+    "sql": "SELECT waiter, product_name, SUM(total) AS facturado FROM sales GROUP BY waiter, product_name ORDER BY facturado DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "GROUP BY two columns with LIMIT"
+  },
+  {
+    "question": "¿Cuántas ventas de cada producto hubo en septiembre?",
+    "sql": "SELECT product_name, COUNT(*) AS ventas FROM sales WHERE date LIKE '9/%' GROUP BY product_name ORDER BY ventas DESC;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Product-level counts in September"
+  },
+  {
+    "question": "¿Cuáles son los mozos que vendieron más de 500 unidades en total?",
+    "sql": "SELECT waiter, SUM(quantity) AS unidades FROM sales GROUP BY waiter HAVING SUM(quantity) > 500 ORDER BY unidades DESC;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "HAVING on SUM(quantity) per waiter"
+  },
+  {
+    "question": "¿Cuántas líneas de venta tuvieron un total entre 5000 y 20000?",
+    "sql": "SELECT COUNT(*) AS lineas FROM sales WHERE total BETWEEN 5000 AND 20000;",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "COUNT with BETWEEN range on total"
+  },
+  {
+    "question": "¿Cuántas ventas por hora se registraron los sábados?",
+    "sql": "SELECT SUBSTR(hour, 1, 2) AS hora, COUNT(*) AS ventas FROM sales WHERE week_day = 'Saturday' GROUP BY hora ORDER BY hora;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Hourly sales on Saturdays"
+  },
+  {
+    "question": "¿Cuáles son los 3 productos con menor facturación?",
+    "sql": "SELECT product_name, SUM(total) AS facturado FROM sales GROUP BY product_name ORDER BY facturado ASC LIMIT 3;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Bottom-3 products by total revenue"
+  },
+  {
+    "question": "¿Cuál es la facturación por fecha en la segunda semana de octubre?",
+    "sql": "SELECT date, SUM(total) AS facturado FROM sales WHERE date LIKE '10/%' AND date IN ('10/7/2024','10/8/2024','10/9/2024','10/10/2024','10/11/2024','10/12/2024','10/13/2024') GROUP BY date ORDER BY date;",
+    "difficulty": "medium",
+    "category": "date",
+    "explanation": "Revenue by date for specific week with enumerated dates"
+  },
+  {
+    "question": "¿Qué porcentaje del total de ventas corresponde a cada mozo?",
+    "sql": "SELECT waiter, SUM(total) AS facturado, ROUND(SUM(total) * 100.0 / (SELECT SUM(total) FROM sales), 2) AS porcentaje FROM sales GROUP BY waiter ORDER BY porcentaje DESC;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Percentage calculation using scalar subquery"
+  },
+  {
+    "question": "¿Cuántos registros por vendedor se acumularon en cada período mensual?",
+    "sql": "SELECT waiter, CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, COUNT(*) AS lineas FROM sales GROUP BY waiter, mes ORDER BY waiter, mes;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Waiter activity by month"
+  },
+  {
+    "question": "¿Cuántas ventas de productos sueltos hubo?",
+    "sql": "SELECT COUNT(*) AS ventas_sueltos FROM sales WHERE product_name LIKE '%Suelto%' OR product_name LIKE '%x un%';",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "OR condition with LIKE for unit products"
+  },
+  {
+    "question": "¿Cuántos productos facturaron más de 1 millón en total?",
+    "sql": "SELECT COUNT(*) AS productos FROM (SELECT product_name FROM sales GROUP BY product_name HAVING SUM(total) > 1000000);",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Counting products exceeding a revenue threshold"
+  },
+  {
+    "question": "¿Cuántas ventas se hicieron el primer día de cada mes?",
+    "sql": "SELECT date, COUNT(*) AS ventas FROM sales WHERE date IN ('9/1/2024', '10/1/2024', '11/1/2024') GROUP BY date;",
+    "difficulty": "medium",
+    "category": "date",
+    "explanation": "Sales on first day of each month"
+  },
+  {
+    "question": "¿Cuáles son los 5 horarios con mayor ingreso total?",
+    "sql": "SELECT hour, SUM(total) AS ingreso FROM sales GROUP BY hour ORDER BY ingreso DESC LIMIT 5;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top-5 hours by revenue"
+  },
+  {
+    "question": "¿Cuál es el total facturado por los mozos 101, 102 y 103 combinados?",
+    "sql": "SELECT SUM(total) AS facturado FROM sales WHERE waiter IN ('101', '102', '103');",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "SUM with IN clause for multiple waiters"
+  },
+  {
+    "question": "¿Cuántas variedades de producto incluyen la palabra alfajor en su denominación?",
+    "sql": "SELECT COUNT(DISTINCT product_name) AS productos_alfajor FROM sales WHERE product_name LIKE '%Alfajor%' OR product_name LIKE '%alfajor%';",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "COUNT DISTINCT with case-variant LIKE"
+  },
+  {
+    "question": "¿Cuáles son las horas pico de ventas los lunes?",
+    "sql": "SELECT SUBSTR(hour, 1, 2) AS hora, COUNT(*) AS ventas FROM sales WHERE week_day = 'Monday' GROUP BY hora ORDER BY ventas DESC LIMIT 3;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Top hours on Mondays"
+  },
+  {
+    "question": "¿Qué productos tienen un precio unitario promedio superior a 10000?",
+    "sql": "SELECT product_name, AVG(unitary_price) AS precio_prom FROM sales WHERE unitary_price > 0 GROUP BY product_name HAVING AVG(unitary_price) > 10000 ORDER BY precio_prom DESC;",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "HAVING on AVG(unitary_price)"
+  },
+  {
+    "question": "¿Cuántas líneas por ticket se registraron en promedio?",
+    "sql": "SELECT AVG(lineas) AS promedio_lineas FROM (SELECT ticket_number, COUNT(*) AS lineas FROM sales GROUP BY ticket_number);",
+    "difficulty": "medium",
+    "category": "aggregation_filter",
+    "explanation": "Average lines per ticket via subquery"
+  },
+  {
+    "question": "¿Qué productos se vendieron tanto en septiembre como en noviembre?",
+    "sql": "SELECT DISTINCT product_name FROM sales WHERE date LIKE '9/%' INTERSECT SELECT DISTINCT product_name FROM sales WHERE date LIKE '11/%';",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "INTERSECT to find products sold in both months"
+  },
+  {
+    "question": "¿Cuáles son los productos que solo se vendieron en un único mes?",
+    "sql": "SELECT product_name FROM sales GROUP BY product_name HAVING COUNT(DISTINCT CASE WHEN date LIKE '9/%' THEN 1 WHEN date LIKE '10/%' THEN 2 WHEN date LIKE '11/%' THEN 3 END) = 1;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "CASE WHEN inside COUNT DISTINCT for month uniqueness"
+  },
+  {
+    "question": "¿Cuáles son los productos con facturación superior al promedio general de facturación por producto?",
+    "sql": "SELECT product_name, SUM(total) AS facturado FROM sales GROUP BY product_name HAVING SUM(total) > (SELECT AVG(prod_total) FROM (SELECT SUM(total) AS prod_total FROM sales GROUP BY product_name));",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "HAVING with nested subquery computing average product revenue"
+  },
+  {
+    "question": "¿Cuál es el ingreso de cada producto en cada mes, mostrando el crecimiento entre meses?",
+    "sql": "SELECT product_name, SUM(CASE WHEN date LIKE '9/%' THEN total ELSE 0 END) AS sep, SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END) AS oct, SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) AS nov FROM sales GROUP BY product_name ORDER BY product_name;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Pivot table using CASE WHEN for monthly revenue"
+  },
+  {
+    "question": "¿Cuántas líneas de venta de productos promocionales registró cada mozo?",
+    "sql": "SELECT waiter, COUNT(*) AS lineas_promo FROM sales WHERE unitary_price = 0 GROUP BY waiter ORDER BY lineas_promo DESC;",
+    "difficulty": "hard",
+    "category": "cross_dimension",
+    "explanation": "Promotional items count by waiter"
+  },
+  {
+    "question": "¿Cuáles son los tickets que contienen tanto devoluciones como ventas normales?",
+    "sql": "SELECT DISTINCT ticket_number FROM sales WHERE quantity > 0 AND ticket_number IN (SELECT DISTINCT ticket_number FROM sales WHERE quantity < 0);",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "IN subquery to find tickets with mixed positive/negative quantities"
+  },
+  {
+    "question": "¿Cuáles son los 10 productos con mayor diferencia entre el precio unitario máximo y mínimo (excluyendo gratis)?",
+    "sql": "SELECT product_name, MAX(unitary_price) - MIN(unitary_price) AS diferencia FROM sales WHERE unitary_price > 0 GROUP BY product_name ORDER BY diferencia DESC LIMIT 10;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Price range analysis excluding promotional items"
+  },
+  {
+    "question": "¿Cuál es el porcentaje de líneas promocionales por producto?",
+    "sql": "SELECT product_name, COUNT(*) AS total_lineas, SUM(CASE WHEN unitary_price = 0 THEN 1 ELSE 0 END) AS lineas_promo, ROUND(SUM(CASE WHEN unitary_price = 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_promo FROM sales GROUP BY product_name ORDER BY pct_promo DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "CASE WHEN for conditional counting with percentage"
+  },
+  {
+    "question": "¿Cuál fue el mejor día de ventas de cada mozo?",
+    "sql": "SELECT waiter, date, SUM(total) AS facturado FROM sales GROUP BY waiter, date HAVING SUM(total) = (SELECT MAX(day_total) FROM (SELECT waiter AS w, date AS d, SUM(total) AS day_total FROM sales GROUP BY waiter, date) sub WHERE sub.w = sales.waiter);",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Correlated subquery to find max revenue day per waiter"
+  },
+  {
+    "question": "¿Cuáles son los productos que nunca se vendieron como promoción?",
+    "sql": "SELECT DISTINCT product_name FROM sales WHERE product_name NOT IN (SELECT DISTINCT product_name FROM sales WHERE unitary_price = 0) ORDER BY product_name;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "NOT IN subquery for products never given as promo"
+  },
+  {
+    "question": "¿Cuál es la participación porcentual de cada producto en la facturación total?",
+    "sql": "SELECT product_name, SUM(total) AS facturado, ROUND(SUM(total) * 100.0 / (SELECT SUM(total) FROM sales), 2) AS participacion FROM sales GROUP BY product_name ORDER BY participacion DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Revenue share using scalar subquery for total"
+  },
+  {
+    "question": "¿Cuáles son los mozos cuya facturación supera la media de facturación por mozo?",
+    "sql": "SELECT waiter, SUM(total) AS facturado FROM sales GROUP BY waiter HAVING SUM(total) > (SELECT AVG(mozo_total) FROM (SELECT SUM(total) AS mozo_total FROM sales GROUP BY waiter));",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "HAVING with nested subquery for average waiter revenue"
+  },
+  {
+    "question": "¿Cuántas ventas de cada producto ocurrieron en horario de mañana vs tarde?",
+    "sql": "SELECT product_name, SUM(CASE WHEN hour < '13:00' THEN 1 ELSE 0 END) AS manana, SUM(CASE WHEN hour >= '13:00' THEN 1 ELSE 0 END) AS tarde FROM sales GROUP BY product_name ORDER BY product_name;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "CASE WHEN for time-of-day split"
+  },
+  {
+    "question": "¿Cuáles son los días donde la facturación superó el doble del promedio diario?",
+    "sql": "SELECT date, SUM(total) AS facturado FROM sales GROUP BY date HAVING SUM(total) > 2 * (SELECT AVG(dia_total) FROM (SELECT SUM(total) AS dia_total FROM sales GROUP BY date));",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Days exceeding 2x average daily revenue"
+  },
+  {
+    "question": "¿Cuál es el ranking de productos por cantidad vendida en octubre, mostrando posición?",
+    "sql": "SELECT product_name, SUM(quantity) AS unidades, RANK() OVER (ORDER BY SUM(quantity) DESC) AS ranking FROM sales WHERE date LIKE '10/%' GROUP BY product_name ORDER BY ranking LIMIT 10;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Window function RANK() for product ranking"
+  },
+  {
+    "question": "¿Cuál es la diferencia de facturación entre octubre y noviembre para cada producto?",
+    "sql": "SELECT product_name, SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END) AS oct, SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) AS nov, SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) - SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END) AS diferencia FROM sales GROUP BY product_name ORDER BY diferencia DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Revenue difference between months using CASE WHEN"
+  },
+  {
+    "question": "¿Cuántas unidades vendió cada mozo de productos tipo caja?",
+    "sql": "SELECT waiter, SUM(quantity) AS unidades_caja FROM sales WHERE product_name LIKE '%caja%' GROUP BY waiter ORDER BY unidades_caja DESC;",
+    "difficulty": "hard",
+    "category": "cross_dimension",
+    "explanation": "Cross-dimension: waiter × product format"
+  },
+  {
+    "question": "¿Cuáles son los productos que se vendieron todos los días de la semana?",
+    "sql": "SELECT product_name FROM sales GROUP BY product_name HAVING COUNT(DISTINCT week_day) = 7;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "HAVING COUNT DISTINCT for full-week coverage"
+  },
+  {
+    "question": "¿Cuáles son las 5 fechas con más tickets distintos?",
+    "sql": "SELECT date, COUNT(DISTINCT ticket_number) AS tickets FROM sales GROUP BY date ORDER BY tickets DESC LIMIT 5;",
+    "difficulty": "hard",
+    "category": "cross_dimension",
+    "explanation": "Top dates by unique ticket count"
+  },
+  {
+    "question": "¿Cuál es el ingreso total separado por rango de precio (gratis, hasta 3000, hasta 10000, más de 10000)?",
+    "sql": "SELECT CASE WHEN unitary_price = 0 THEN 'Gratis' WHEN unitary_price <= 3000 THEN 'Hasta 3000' WHEN unitary_price <= 10000 THEN 'Hasta 10000' ELSE 'Más de 10000' END AS rango_precio, SUM(total) AS ingreso FROM sales GROUP BY rango_precio ORDER BY ingreso DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Price range bucketing with CASE WHEN"
+  },
+  {
+    "question": "¿Cuántas boletas contienen un solo artículo?",
+    "sql": "SELECT COUNT(*) AS tickets_un_producto FROM (SELECT ticket_number FROM sales GROUP BY ticket_number HAVING COUNT(*) = 1);",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Count of single-item tickets via subquery"
+  },
+  {
+    "question": "¿Cuál es la facturación acumulada por día en octubre?",
+    "sql": "SELECT date, SUM(total) AS diario, SUM(SUM(total)) OVER (ORDER BY date) AS acumulado FROM sales WHERE date LIKE '10/%' GROUP BY date ORDER BY date;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Running total using window function SUM OVER"
+  },
+  {
+    "question": "¿Cuáles son los productos cuyo ingreso en noviembre fue mayor que en octubre?",
+    "sql": "SELECT product_name, SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END) AS oct, SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) AS nov FROM sales GROUP BY product_name HAVING nov > oct ORDER BY nov - oct DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Month-over-month comparison using CASE WHEN"
+  },
+  {
+    "question": "¿Cuál es el ticket con mayor cantidad de productos distintos?",
+    "sql": "SELECT ticket_number, COUNT(DISTINCT product_name) AS productos FROM sales GROUP BY ticket_number ORDER BY productos DESC LIMIT 1;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Ticket with most diverse products"
+  },
+  {
+    "question": "¿Qué productos representan el 80% de la facturación total (análisis Pareto)?",
+    "sql": "SELECT product_name, facturado, SUM(facturado) OVER (ORDER BY facturado DESC) AS acumulado, SUM(facturado) OVER (ORDER BY facturado DESC) * 100.0 / SUM(facturado) OVER () AS pct_acumulado FROM (SELECT product_name, SUM(total) AS facturado FROM sales GROUP BY product_name) ORDER BY facturado DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Pareto analysis with window functions"
+  },
+  {
+    "question": "¿Cuál es la desviación entre el precio unitario de cada venta y el precio promedio de ese producto?",
+    "sql": "SELECT product_name, unitary_price, unitary_price - AVG(unitary_price) OVER (PARTITION BY product_name) AS desviacion FROM sales WHERE unitary_price > 0 LIMIT 20;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Window function AVG OVER PARTITION for deviation"
+  },
+  {
+    "question": "¿Cuáles son los mozos que vendieron productos que ningún otro mozo vendió?",
+    "sql": "SELECT DISTINCT s.waiter, s.product_name FROM sales s WHERE s.product_name IN (SELECT product_name FROM sales GROUP BY product_name HAVING COUNT(DISTINCT waiter) = 1) ORDER BY s.waiter;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Exclusive products per waiter using HAVING COUNT DISTINCT"
+  },
+  {
+    "question": "¿Cuál es el ingreso promedio por ticket para cada día de la semana?",
+    "sql": "SELECT week_day, AVG(ticket_total) AS promedio_ticket FROM (SELECT ticket_number, week_day, SUM(total) AS ticket_total FROM sales GROUP BY ticket_number, week_day) GROUP BY week_day ORDER BY promedio_ticket DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Nested aggregation: avg ticket value by day"
+  },
+  {
+    "question": "¿Cuáles 3 artículos muestran la mayor proporción de devoluciones sobre ventas?",
+    "sql": "SELECT product_name, SUM(CASE WHEN quantity < 0 THEN ABS(quantity) ELSE 0 END) AS devueltas, SUM(CASE WHEN quantity > 0 THEN quantity ELSE 0 END) AS vendidas, ROUND(SUM(CASE WHEN quantity < 0 THEN ABS(quantity) ELSE 0 END) * 100.0 / NULLIF(SUM(CASE WHEN quantity > 0 THEN quantity ELSE 0 END), 0), 2) AS tasa_devolucion FROM sales GROUP BY product_name HAVING devueltas > 0 ORDER BY tasa_devolucion DESC LIMIT 3;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Return rate with conditional aggregation and NULLIF"
+  },
+  {
+    "question": "¿En qué franja horaria se factura más para cada período mensual?",
+    "sql": "SELECT mes, hora, max_facturado FROM (SELECT CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, SUBSTR(hour, 1, 2) AS hora, SUM(total) AS max_facturado, RANK() OVER (PARTITION BY CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END ORDER BY SUM(total) DESC) AS rk FROM sales GROUP BY mes, hora) WHERE rk = 1;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Peak hour per month using RANK window function"
+  },
+  {
+    "question": "¿Cuántas líneas de venta hizo cada mozo en cada franja horaria (mañana/tarde/noche)?",
+    "sql": "SELECT waiter, CASE WHEN hour < '13:00' THEN 'Mañana' WHEN hour < '17:00' THEN 'Tarde' ELSE 'Noche' END AS franja, COUNT(*) AS lineas FROM sales GROUP BY waiter, franja ORDER BY waiter, franja;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Time-period bucketing with CASE WHEN per waiter"
+  },
+  {
+    "question": "¿Cuáles artículos registraron despachos en los tres períodos mensuales?",
+    "sql": "SELECT product_name FROM sales GROUP BY product_name HAVING COUNT(DISTINCT CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END) = 3;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Products present in all three months"
+  },
+  {
+    "question": "¿Cuál es la diferencia de unidades vendidas entre fines de semana y días de semana por producto?",
+    "sql": "SELECT product_name, SUM(CASE WHEN week_day IN ('Saturday', 'Sunday') THEN quantity ELSE 0 END) AS fin_de_semana, SUM(CASE WHEN week_day NOT IN ('Saturday', 'Sunday') THEN quantity ELSE 0 END) AS entre_semana, SUM(CASE WHEN week_day IN ('Saturday', 'Sunday') THEN quantity ELSE 0 END) - SUM(CASE WHEN week_day NOT IN ('Saturday', 'Sunday') THEN quantity ELSE 0 END) AS diferencia FROM sales GROUP BY product_name ORDER BY diferencia DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Weekend vs weekday comparison using CASE WHEN"
+  },
+  {
+    "question": "¿Cuántas boletas únicas gestionó cada vendedor en cada período mensual?",
+    "sql": "SELECT waiter, CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, COUNT(DISTINCT ticket_number) AS tickets FROM sales GROUP BY waiter, mes ORDER BY waiter, mes;",
+    "difficulty": "hard",
+    "category": "cross_dimension",
+    "explanation": "Cross-dimension: waiter × month for ticket counts"
+  },
+  {
+    "question": "¿Cuáles son los productos donde la cantidad media vendida supera la media global?",
+    "sql": "SELECT product_name, AVG(quantity) AS avg_qty FROM sales GROUP BY product_name HAVING AVG(quantity) > (SELECT AVG(quantity) FROM sales) ORDER BY avg_qty DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "HAVING with scalar subquery for global average comparison"
+  },
+  {
+    "question": "¿Cuáles son los días con facturación superior al percentil 90?",
+    "sql": "SELECT date, dia_total FROM (SELECT date, SUM(total) AS dia_total FROM sales GROUP BY date) WHERE dia_total > (SELECT dia_total FROM (SELECT SUM(total) AS dia_total FROM sales GROUP BY date ORDER BY dia_total ASC LIMIT 1 OFFSET (SELECT COUNT(DISTINCT date) * 9 / 10 FROM sales)));",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Percentile approximation using OFFSET"
+  },
+  {
+    "question": "¿Cuántos productos tienen ventas en más de 40 fechas distintas?",
+    "sql": "SELECT COUNT(*) AS productos FROM (SELECT product_name FROM sales GROUP BY product_name HAVING COUNT(DISTINCT date) > 40);",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Count of products with wide date coverage"
+  },
+  {
+    "question": "¿Cuál es el ingreso total y el número de líneas por formato de producto (caja, unidad, pouch)?",
+    "sql": "SELECT CASE WHEN product_name LIKE '%caja%' THEN 'Caja' WHEN product_name LIKE '%x un%' OR product_name LIKE '%Suelto%' THEN 'Unidad' WHEN product_name LIKE '%pouch%' THEN 'Pouch' ELSE 'Otro' END AS formato, COUNT(*) AS lineas, SUM(total) AS ingreso FROM sales GROUP BY formato ORDER BY ingreso DESC;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Product format classification with CASE WHEN LIKE"
+  },
+  {
+    "question": "¿Qué artículo lidera las unidades despachadas por cada vendedor?",
+    "sql": "SELECT waiter, product_name, unidades FROM (SELECT waiter, product_name, SUM(quantity) AS unidades, RANK() OVER (PARTITION BY waiter ORDER BY SUM(quantity) DESC) AS rk FROM sales GROUP BY waiter, product_name) WHERE rk = 1 ORDER BY waiter;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Top product per waiter using RANK window function"
+  },
+  {
+    "question": "¿Cuál es la cantidad media de líneas por ticket para ventas mayoristas vs minoristas?",
+    "sql": "SELECT CASE WHEN ticket_number LIKE 'FCA%' THEN 'Mayorista' ELSE 'Minorista' END AS tipo, AVG(lineas) AS promedio_lineas FROM (SELECT ticket_number, COUNT(*) AS lineas FROM sales GROUP BY ticket_number) GROUP BY tipo;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Wholesale vs retail ticket size comparison"
+  },
+  {
+    "question": "¿Cuáles artículos presentan mayor rango de variación en su tarifa unitaria?",
+    "sql": "SELECT product_name, MAX(unitary_price) AS max_precio, MIN(unitary_price) AS min_precio, ROUND(MAX(unitary_price) - MIN(unitary_price), 2) AS rango FROM sales WHERE unitary_price > 0 GROUP BY product_name HAVING COUNT(*) > 10 ORDER BY rango DESC LIMIT 10;",
+    "difficulty": "hard",
+    "category": "edge_case",
+    "explanation": "Price variability with minimum sample filter"
+  },
+  {
+    "question": "¿Cuántos productos nuevos aparecieron cada mes comparado con el mes anterior?",
+    "sql": "SELECT 'Octubre' AS mes, COUNT(DISTINCT product_name) AS productos_nuevos FROM sales WHERE date LIKE '10/%' AND product_name NOT IN (SELECT DISTINCT product_name FROM sales WHERE date LIKE '9/%') UNION ALL SELECT 'Noviembre', COUNT(DISTINCT product_name) FROM sales WHERE date LIKE '11/%' AND product_name NOT IN (SELECT DISTINCT product_name FROM sales WHERE date LIKE '9/%' OR date LIKE '10/%');",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "New product detection per month using NOT IN"
+  },
+  {
+    "question": "¿Cuáles son las combinaciones de mozo y día con facturación superior al promedio?",
+    "sql": "SELECT waiter, week_day, SUM(total) AS facturado FROM sales GROUP BY waiter, week_day HAVING SUM(total) > (SELECT AVG(combo_total) FROM (SELECT SUM(total) AS combo_total FROM sales GROUP BY waiter, week_day)) ORDER BY facturado DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Above-average waiter-day combinations"
+  },
+  {
+    "question": "¿Cuáles son los productos con facturación creciente mes a mes?",
+    "sql": "SELECT product_name FROM sales GROUP BY product_name HAVING SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END) > SUM(CASE WHEN date LIKE '9/%' THEN total ELSE 0 END) AND SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) > SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END);",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Monotonically increasing revenue detection"
+  },
+  {
+    "question": "¿Cuántas variedades de producto atendió el vendedor 116 durante noviembre?",
+    "sql": "SELECT COUNT(DISTINCT product_name) AS productos FROM sales WHERE waiter = '116' AND date LIKE '11/%';",
+    "difficulty": "medium",
+    "category": "filter",
+    "explanation": "COUNT DISTINCT with two WHERE conditions"
+  },
+  {
+    "question": "¿Cuáles son los 3 productos con menor cantidad de ventas?",
+    "sql": "SELECT product_name, COUNT(*) AS ventas FROM sales GROUP BY product_name ORDER BY ventas ASC LIMIT 3;",
+    "difficulty": "medium",
+    "category": "grouping",
+    "explanation": "Bottom-3 products by sale count"
+  },
+  {
+    "question": "¿Cuáles son los tickets que incluyen más de 3 productos distintos?",
+    "sql": "SELECT ticket_number, COUNT(DISTINCT product_name) AS productos FROM sales GROUP BY ticket_number HAVING COUNT(DISTINCT product_name) > 3 ORDER BY productos DESC;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "HAVING on COUNT DISTINCT for multi-product tickets"
+  },
+  {
+    "question": "¿Cuál es la proporción de ventas en efectivo (FCB) versus mayorista (FCA) por mes?",
+    "sql": "SELECT CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, SUM(CASE WHEN ticket_number LIKE 'FCB%' THEN total ELSE 0 END) AS fcb, SUM(CASE WHEN ticket_number LIKE 'FCA%' THEN total ELSE 0 END) AS fca, ROUND(SUM(CASE WHEN ticket_number LIKE 'FCA%' THEN total ELSE 0 END) * 100.0 / NULLIF(SUM(total), 0), 2) AS pct_mayorista FROM sales GROUP BY mes;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "FCB vs FCA monthly proportion with CASE WHEN and NULLIF"
+  },
+  {
+    "question": "¿Cuál es el horario con mayor promedio de facturación por ticket?",
+    "sql": "SELECT hora, AVG(ticket_total) AS avg_ticket FROM (SELECT ticket_number, SUBSTR(hour, 1, 2) AS hora, SUM(total) AS ticket_total FROM sales GROUP BY ticket_number, hora) GROUP BY hora ORDER BY avg_ticket DESC LIMIT 1;",
+    "difficulty": "hard",
+    "category": "subquery",
+    "explanation": "Nested aggregation for avg ticket value by hour"
+  },
+  {
+    "question": "¿Cuáles son los 5 productos con mayor diferencia de unidades vendidas entre septiembre y octubre?",
+    "sql": "SELECT product_name, SUM(CASE WHEN date LIKE '9/%' THEN quantity ELSE 0 END) AS sep, SUM(CASE WHEN date LIKE '10/%' THEN quantity ELSE 0 END) AS oct, ABS(SUM(CASE WHEN date LIKE '10/%' THEN quantity ELSE 0 END) - SUM(CASE WHEN date LIKE '9/%' THEN quantity ELSE 0 END)) AS diferencia FROM sales GROUP BY product_name ORDER BY diferencia DESC LIMIT 5;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Month-over-month quantity difference with ABS"
+  },
+  {
+    "question": "¿Cuántos mozos tienen una facturación en noviembre superior a su facturación en octubre?",
+    "sql": "SELECT COUNT(*) AS mozos FROM (SELECT waiter FROM sales GROUP BY waiter HAVING SUM(CASE WHEN date LIKE '11/%' THEN total ELSE 0 END) > SUM(CASE WHEN date LIKE '10/%' THEN total ELSE 0 END));",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Counting waiters with growth between months"
+  },
+  {
+    "question": "¿Cuál es el porcentaje de devoluciones sobre el total de líneas por cada mes?",
+    "sql": "SELECT CASE WHEN date LIKE '9/%' THEN 'Sep' WHEN date LIKE '10/%' THEN 'Oct' WHEN date LIKE '11/%' THEN 'Nov' END AS mes, COUNT(*) AS total_lineas, SUM(CASE WHEN quantity < 0 THEN 1 ELSE 0 END) AS devoluciones, ROUND(SUM(CASE WHEN quantity < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS pct_devolucion FROM sales GROUP BY mes;",
+    "difficulty": "hard",
+    "category": "conditional_aggregation",
+    "explanation": "Return rate percentage by month"
+  }
+]

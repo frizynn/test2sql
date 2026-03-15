@@ -1,0 +1,40 @@
+# Large model files — mounted via volume
+models/
+
+# Version control
+.git/
+.gitignore
+
+# Planning / benchmark artifacts
+.gsd/
+benchmark/
+.artifacts/
+.bg-shell/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Databases
+*.db
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Documentation
+*.md
+
+# Misc
+convert_and_upload.py
+test_suite.json

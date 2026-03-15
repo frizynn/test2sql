@@ -1,0 +1,75 @@
+services:
+  text2sql:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.llama
+    entrypoint: ["sh", "-c"]
+    command:
+      - >-
+        exec llama-server
+        --host 0.0.0.0
+        --port 8080
+        --model ${TEXT2SQL_MODEL:-/models/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf}
+        --ctx-size ${TEXT2SQL_CTX_SIZE:-2048}
+        ${TEXT2SQL_EXTRA_FLAGS:-}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models:ro
+    env_file:
+      - path: .env
+        required: false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+
+  nlg:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.llama
+    entrypoint: ["sh", "-c"]
+    command:
+      - >-
+        exec llama-server
+        --host 0.0.0.0
+        --port 8080
+        --model ${NLG_MODEL:-/models/Qwen3.5-2B-Q4_K_M.gguf}
+        --ctx-size ${NLG_CTX_SIZE:-2048}
+        ${NLG_EXTRA_FLAGS:-}
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./models:/models:ro
+    env_file:
+      - path: .env
+        required: false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "8000:8000"
+    environment:
+      - TEXT2SQL_URL=http://text2sql:8080/v1/chat/completions
+      - NLG_URL=http://nlg:8080/v1/chat/completions
+    depends_on:
+      text2sql:
+        condition: service_healthy
+      nlg:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 3

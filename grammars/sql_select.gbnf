@@ -1,0 +1,101 @@
+# GBNF grammar for SQL SELECT statements (permissive).
+# Designed for llama-server constrained decoding. Allows all SQL constructs
+# that a text-to-SQL model would naturally produce against a single-table
+# SQLite schema. Intentionally loose — the model produces 0 syntax errors
+# in benchmarks; this grammar is insurance, not a fix.
+#
+# NOTE: All alternatives must be on a single line — llama.cpp GBNF parser
+# does not support multi-line rules with | on continuation lines.
+
+root ::= ws select-stmt ws ";"
+
+# --- Top-level SELECT ---
+select-stmt ::= "SELECT" ws distinct? select-list ws from-clause ws where-clause? ws group-clause? ws having-clause? ws order-clause? ws limit-clause?
+
+distinct ::= "DISTINCT" ws
+
+# --- SELECT list ---
+select-list ::= select-item (ws "," ws select-item)*
+select-item ::= expr (ws alias)?
+
+alias ::= "AS"? ws identifier
+
+# --- FROM clause ---
+from-clause ::= "FROM" ws table-ref (ws "," ws table-ref)*
+table-ref ::= subquery-as | table-name (ws alias)?
+subquery-as ::= "(" ws select-stmt ws ")" ws alias
+table-name ::= identifier
+
+# --- WHERE clause ---
+where-clause ::= "WHERE" ws condition
+
+# --- GROUP BY clause ---
+group-clause ::= "GROUP" ws "BY" ws expr-list
+
+# --- HAVING clause ---
+having-clause ::= "HAVING" ws condition
+
+# --- ORDER BY clause ---
+order-clause ::= "ORDER" ws "BY" ws order-item (ws "," ws order-item)*
+order-item ::= expr ws sort-dir?
+sort-dir ::= "ASC" | "DESC"
+
+# --- LIMIT clause ---
+limit-clause ::= "LIMIT" ws expr (ws "OFFSET" ws expr)?
+
+# --- Expressions ---
+expr-list ::= expr (ws "," ws expr)*
+
+condition ::= expr
+expr ::= or-expr
+or-expr ::= and-expr (ws "OR" ws and-expr)*
+and-expr ::= not-expr (ws "AND" ws not-expr)*
+not-expr ::= "NOT" ws not-expr | comparison
+comparison ::= addition (ws comp-op ws addition)? | addition ws between-expr | addition ws in-expr | addition ws like-expr | addition ws is-null-expr
+
+comp-op ::= "=" | "!=" | "<>" | "<=" | ">=" | "<" | ">"
+between-expr ::= "NOT"? ws "BETWEEN" ws addition ws "AND" ws addition
+in-expr ::= "NOT"? ws "IN" ws "(" ws (select-stmt | expr-list) ws ")"
+like-expr ::= "NOT"? ws "LIKE" ws string-literal
+is-null-expr ::= "IS" ws "NOT"? ws "NULL"
+
+addition ::= multiplication (ws add-op ws multiplication)*
+add-op ::= "+" | "-" | "||"
+
+multiplication ::= unary (ws mul-op ws unary)*
+mul-op ::= "*" | "/" | "%"
+
+unary ::= ("-" ws)? atom
+
+atom ::= case-expr | func-call | "(" ws expr ws ")" | "(" ws select-stmt ws ")" | star | string-literal | numeric-literal | null-literal | column-ref
+
+# --- CASE expression ---
+case-expr ::= "CASE" (ws expr)? (ws when-clause)+ (ws "ELSE" ws expr)? ws "END"
+when-clause ::= "WHEN" ws condition ws "THEN" ws expr
+
+# --- Function calls (aggregates and scalar) ---
+func-call ::= func-name ws "(" ws func-args ws ")"
+func-name ::= "COUNT" | "count" | "Count" | "SUM" | "sum" | "Sum" | "AVG" | "avg" | "Avg" | "MIN" | "min" | "Min" | "MAX" | "max" | "Max" | "ROUND" | "round" | "Round" | "UPPER" | "upper" | "LOWER" | "lower" | "LENGTH" | "length" | "TRIM" | "trim" | "SUBSTR" | "substr" | "REPLACE" | "replace" | "COALESCE" | "coalesce" | "IFNULL" | "ifnull" | "ABS" | "abs" | "CAST" | "cast" | "TYPEOF" | "typeof" | "TOTAL" | "total" | "GROUP_CONCAT" | "group_concat" | "INSTR" | "instr" | "PRINTF" | "printf" | "NULLIF" | "nullif" | "IIF" | "iif"
+func-args ::= star | distinct? expr-list
+
+# --- Terminals ---
+star ::= "*"
+null-literal ::= "NULL"
+
+# Column or table reference: identifiers, optionally dot-separated
+column-ref ::= identifier ("." identifier)?
+
+# Identifiers: plain or quoted
+identifier ::= plain-id | quoted-id
+plain-id ::= [a-zA-Z_] [a-zA-Z0-9_]*
+quoted-id ::= "\"" [^"\n]* "\""
+
+# String literal: single-quoted, with escaped quotes
+string-literal ::= "'" str-char* "'"
+str-char ::= [^'\n] | "''"
+
+# Numeric literal: integers and decimals, optionally negative
+numeric-literal ::= [0-9]+ ("." [0-9]+)?
+
+# Whitespace
+ws ::= [ \t\n\r]*
